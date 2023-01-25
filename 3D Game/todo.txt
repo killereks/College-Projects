@@ -1,0 +1,41 @@
+# Optimisation
+- Math Optimisation
++ Ray Optimisation
+
+# UI
++ Radar always in the middle
+
+# Graphics
+- Floor casting
+- custom shaped walls
+- binary spartial trees
+
+# Quests
+- Walk To A
+- Kill A
+- Give A to B
+- Find A
+- Collect X Amount of B
+
+# Gameplay
+- Doors that need to be unlocked with keys
+
+# Weapons
+- Sniper rifle
+- Pistol
+- Close range
+- Grenades
+- Make a crosshair for weapons
+- Weapons have recoil
+- Weapons can shoot multiple bullets at once (shotgun)
+- Weapons have a range
+- Close range weapons do not make noise
+
+# AI
+- have FOV
+- shot fired -> alarm everyone in range
+- If enemy is seen in FOV alarm everyone nearby (have shout range ?)
+
+# BUGS
++ You can shoot through walls, need a ray that checks if there is a wall in the way
+

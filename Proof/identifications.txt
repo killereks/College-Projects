@@ -1,0 +1,34 @@
+﻿=======================
+ Item attributes ideas
+=======================
+health regen - health / sec
+mana regen - mana / sec
+spell damage - +X% how much extra damage spells deal
+xp bonus - +X% how much extra xp you get
+loot bonus - +X% (affects item quality and coin amount)
+walk speed - +X%
+attack speed - +X%
+poison - -X/s health to enemy for Y seconds
+fire - -X/s health to enemy for Y seconds
+health - +X% max health to character
+mana - +X% max mana to character
+
+===================
+ Player attributes
+===================
+Strength - amount of damage
+Toughness - amount of health
+Stamina - amount of mana
+Dexterity - player speed bonus
+Defence - player defence bonus
+Charisma - extra loot from quests
+
+========
+ Spells
+========
+fireball
+protection
+bullet rain
+heal
+invisibility
+dash

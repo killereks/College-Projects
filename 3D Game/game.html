@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html>
+    <canvas id=canvas width=800 height=400></canvas>
+    <script src="engine.js"></script>
+    <img src="textures/brick_wall.png" id=brick_wall>
+</html>
+
+<style>
+    canvas {
+        border: 1px solid black;
+        display: block;
+        margin: 0 auto;
+    }
+    img {
+        display: none;
+    }
+</style>
+
+<script>
+    var player = {
+        x: 2,
+        y: 5,
+		z: 0,
+		vz: 0,
+        rotation: 0,
+        fov: 90,
+		gravity: 1,
+    }
+    
+    var width = canvas.width,
+        height = canvas.height;
+    
+    var ctx = document.getElementById("canvas").getContext("2d");
+    
+    const Rad2Deg = 180/Math.PI;
+    const Deg2Rad = Math.PI/180;
+    
+    var graphicsQuality = 400;
+    
+    var viewDist = 300;
+    
+    var map = new Map();
+    map.grid = [
+        [1,1,1,1,1,1,1,1,1,1],
+        [1,0,0,0,0,0,0,0,0,1],
+        [1,0,0,1,1,1,1,1,0,1],
+        [1,0,0,0,0,0,0,0,0,1],
+        [1,0,0,0,0,0,0,1,0,1],
+        [1,0,0,0,0,0,0,1,0,1],
+        [1,0,0,0,0,0,0,1,0,1],
+        [1,0,0,0,0,0,0,0,0,1],
+        [1,0,0,0,0,0,0,0,0,1],
+        [1,1,1,1,1,1,1,1,1,1],
+    ]
+    
+    var textures = {
+        loaded: 0,
+        allLoaded: false,
+        "wall": document.getElementById("brick_wall"),
+    }
+    
+    var images = document.getElementsByTagName("img");
+    for (var i = 0; i < images.length; i++){
+        images[i].onload = function(){
+            textures.loaded++;
+            if (textures.loaded == images.length){
+                textures.allLoaded = true;
+            }
+        }
+    }
+    
+    function rectangleMiddle(x,y,w,h,color){
+      ctx.fillStyle = color;
+      ctx.fillRect(x-w/2,y-h/2,w,h);
+    }
+    
+	function decimals(num){
+		return num - Math.floor(num);
+	}
+	function between(num,min,max){
+		return min < num && num < max;
+	}
+	
+	Number.prototype.isInteger = function(){
+		return this == Math.floor(this);
+	}
+	
+	function calcDistance(x,y,x1,y1){
+		var dx = x - x1;
+		var dy = y - y1;
+		return Math.sqrt(dx*dx+dy*dy);
+	}
+	
+	function project(height,angle,distance){
+		var z = distance;
+		var wallHeight = viewDist * height / z;
+		var bottom = this.height / 2 * (1+1/z);
+		return {
+			top: bottom - wallHeight,
+			height: wallHeight
+		}
+	}
+	
+    function drawTexture(texture,x,ray,angle){
+		// draw image (image, cut_startX,cut_startY, cutWidth, cutHeight, x,y,width,height);
+		
+		// if ray x is whole number then you hit side of the block, use y - floor(y)
+		// if ray y is a whole number then you hit top/bottom of the block, use x - floor(x)
+		
+		var d = ray.distance * Math.cos(player.rotation - angle);
+		var h = d != 0 ? Math.round(viewDist/d) : Math.round(viewDist/(d+1));
+		
+		var wall = project(ray.height, angle,d);
+		
+		var spriteX = Math.floor(texture.width * ray.offset);
+		
+		var columnWidth = width / graphicsQuality;
+				
+		ctx.drawImage(texture, spriteX,0, columnWidth, texture.height, x, height/2-h/2+player.z,columnWidth,h);
+		
+		ctx.fillStyle = "black";
+		ctx.fillText(d.toFixed(1),x,50);
+		
+        //ctx.drawImage(texture,x-w/2,y-h/2,w,h);
+    }
+	
+	function drawColumn(columnX,ray,angle){
+		ray.reverse();
+		
+		var hit = -1;
+		
+		while (++hit < ray.length && ray[hit].height <= 0);
+		
+		for (var s = 0; s < ray.length; s++){
+			var step = ray[s];
+			if (s == hit){
+				drawTexture(textures.wall,columnX,step,angle);
+			}
+		}
+	}
+	
+	function drawAllColumns(){
+		for (var i = 0; i < graphicsQuality; i++){
+            var angle = (-player.fov/2 + player.fov * i/graphicsQuality) * Deg2Rad;
+            angle += player.rotation;
+            
+            var ray = map.cast({x: player.x,y:player.y},angle,20);
+			
+			var x = i * width / graphicsQuality;
+			
+			drawColumn(x,ray,angle);
+        }
+	}
+    
+    function render(){
+        ctx.fillStyle = "white";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+		
+		var time = (new Date()).getTime();
+        
+        drawAllColumns();
+		
+		ctx.textAlign = "center";
+		ctx.fillStyle = "black";
+		ctx.fillText(player.rotation.toFixed(1),10,10);
+		
+		
+		var diff = ((new Date()).getTime() - time);
+		var fps = diff == 0 ? 1000 : 1000 / diff;
+		ctx.fillText("FPS: "+fps.toFixed(0),width/2,10);
+		
+        player.rotation += 0.01;
+		
+		player.vz -= player.gravity;
+		player.z += player.vz;
+		
+		if (player.z < 0) {
+			player.z = 0;
+			player.vz = 0;
+		}
+        
+        requestAnimationFrame(render);
+    }
+	// give some time for textures to load
+    setTimeout(render,10);
+    
+</script>

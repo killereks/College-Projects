@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+
+<html>
+    <canvas id=canvas width=800 height=400 onclick='canvas.requestPointerLock(this);'>Your browser does not support canvas.</canvas>
+    <script src="input.js"></script>
+    <script src="map.js"></script>
+    <script src="trigonometry.js"></script>
+    
+    <img src="textures/brick_wall.png" id=brick_wall>
+    <img src="textures/brick_wall_high_res.png" alt="" id=brick_wall_high_res>
+    <img src="textures/paving_stones.png" alt="" id=paving_stones>
+    <img src="textures/skybox.png" alt="" id=skybox>
+    <img src="textures/grass.png" alt="" id=grass>
+    
+    <img src="textures/bullet%20icon.png" alt="" id=bulletIcon>
+    
+    <img src="textures/redX.png" alt="" id=redX>
+    
+    <img src="textures/weapons/shotgun_fire1.png" alt="" id="shotgun_fire1">
+    <img src="textures/weapons/shotgun_fire2.png" alt="" id="shotgun_fire2">
+    <img src="textures/weapons/shotgun_fire3.png" alt="" id="shotgun_fire3">
+    
+    <img src="textures/weapons/shotgun_idle.png" alt="" id="shotgun_idle">
+    
+	<img src="textures/weapons/shotgun_reload0.png" alt="" id="shotgun_reload0">
+	<img src="textures/weapons/shotgun_reload1.png" alt="" id="shotgun_reload1">
+	<img src="textures/weapons/shotgun_reload2.png" alt="" id="shotgun_reload2">
+	<img src="textures/weapons/shotgun_reload3.png" alt="" id="shotgun_reload3">
+	<img src="textures/weapons/shotgun_reload4.png" alt="" id="shotgun_reload4">
+	<img src="textures/weapons/shotgun_reload5.png" alt="" id="shotgun_reload5">
+	<img src="textures/weapons/shotgun_reload6.png" alt="" id="shotgun_reload6">
+	
+	<img src="textures/enemies/black_soldier/mguard_s_1.png" alt="" id="bGuard_s1">
+	<img src="textures/enemies/black_soldier/mguard_s_2.png" alt="" id="bGuard_s2">
+	<img src="textures/enemies/black_soldier/mguard_s_3.png" alt="" id="bGuard_s3">
+	<img src="textures/enemies/black_soldier/mguard_s_4.png" alt="" id="bGuard_s4">
+	<img src="textures/enemies/black_soldier/mguard_s_5.png" alt="" id="bGuard_s5">
+	<img src="textures/enemies/black_soldier/mguard_s_6.png" alt="" id="bGuard_s6">
+	<img src="textures/enemies/black_soldier/mguard_s_7.png" alt="" id="bGuard_s7">
+	<img src="textures/enemies/black_soldier/mguard_s_8.png" alt="" id="bGuard_s8">
+	
+	<img src="textures/enemies/black_soldier/mguard_w1_1.png" alt="" id=bGuard_w1_1>
+	<img src="textures/enemies/black_soldier/mguard_w1_2.png" alt="" id=bGuard_w1_2>
+	<img src="textures/enemies/black_soldier/mguard_w1_3.png" alt="" id=bGuard_w1_3>
+	<img src="textures/enemies/black_soldier/mguard_w1_4.png" alt="" id=bGuard_w1_4>
+	<img src="textures/enemies/black_soldier/mguard_w1_5.png" alt="" id=bGuard_w1_5>
+	<img src="textures/enemies/black_soldier/mguard_w1_6.png" alt="" id=bGuard_w1_6>
+	<img src="textures/enemies/black_soldier/mguard_w1_7.png" alt="" id=bGuard_w1_7>
+	<img src="textures/enemies/black_soldier/mguard_w1_8.png" alt="" id=bGuard_w1_8>
+	
+	<img src="textures/enemies/black_soldier/mguard_w2_1.png" alt="" id=bGuard_w2_1>
+	<img src="textures/enemies/black_soldier/mguard_w2_2.png" alt="" id=bGuard_w2_2>
+	<img src="textures/enemies/black_soldier/mguard_w2_3.png" alt="" id=bGuard_w2_3>
+	<img src="textures/enemies/black_soldier/mguard_w2_4.png" alt="" id=bGuard_w2_4>
+	<img src="textures/enemies/black_soldier/mguard_w2_5.png" alt="" id=bGuard_w2_5>
+	<img src="textures/enemies/black_soldier/mguard_w2_6.png" alt="" id=bGuard_w2_6>
+	<img src="textures/enemies/black_soldier/mguard_w2_7.png" alt="" id=bGuard_w2_7>
+	<img src="textures/enemies/black_soldier/mguard_w2_8.png" alt="" id=bGuard_w2_8>
+	
+	<img src="textures/enemies/black_soldier/mguard_w3_1.png" alt="" id=bGuard_w3_1>
+	<img src="textures/enemies/black_soldier/mguard_w3_2.png" alt="" id=bGuard_w3_2>
+	<img src="textures/enemies/black_soldier/mguard_w3_3.png" alt="" id=bGuard_w3_3>
+	<img src="textures/enemies/black_soldier/mguard_w3_4.png" alt="" id=bGuard_w3_4>
+	<img src="textures/enemies/black_soldier/mguard_w3_5.png" alt="" id=bGuard_w3_5>
+	<img src="textures/enemies/black_soldier/mguard_w3_6.png" alt="" id=bGuard_w3_6>
+	<img src="textures/enemies/black_soldier/mguard_w3_7.png" alt="" id=bGuard_w3_7>
+	<img src="textures/enemies/black_soldier/mguard_w3_8.png" alt="" id=bGuard_w3_8>
+	
+	<img src="textures/enemies/black_soldier/mguard_w4_1.png" alt="" id=bGuard_w4_1>
+	<img src="textures/enemies/black_soldier/mguard_w4_2.png" alt="" id=bGuard_w4_2>
+	<img src="textures/enemies/black_soldier/mguard_w4_3.png" alt="" id=bGuard_w4_3>
+	<img src="textures/enemies/black_soldier/mguard_w4_4.png" alt="" id=bGuard_w4_4>
+	<img src="textures/enemies/black_soldier/mguard_w4_5.png" alt="" id=bGuard_w4_5>
+	<img src="textures/enemies/black_soldier/mguard_w4_6.png" alt="" id=bGuard_w4_6>
+	<img src="textures/enemies/black_soldier/mguard_w4_7.png" alt="" id=bGuard_w4_7>
+	<img src="textures/enemies/black_soldier/mguard_w4_8.png" alt="" id=bGuard_w4_8>
+	
+	<img src="textures/enemies/black_soldier/mguard_die1.png" alt="" id="bGuard_die1">
+	<img src="textures/enemies/black_soldier/mguard_die2.png" alt="" id="bGuard_die2">
+	<img src="textures/enemies/black_soldier/mguard_die3.png" alt="" id="bGuard_die3">
+	<img src="textures/enemies/black_soldier/mguard_die4.png" alt="" id="bGuard_die4">
+	
+	<!-- img[src=textures/enemies/black_soldier/mguard_pain1$]#bGuard_pain$*2 -->
+	<img src="textures/enemies/black_soldier/mguard_pain1.png" alt="" id="bGuard_pain1">
+	<img src="textures/enemies/black_soldier/mguard_pain2.png" alt="" id="bGuard_pain2">
+	
+	<img src="textures/enemies/black_soldier/mguard_shoot1.png" alt="" id="bGuard_shoot1">
+	<img src="textures/enemies/black_soldier/mguard_shoot2.png" alt="" id="bGuard_shoot2">
+	<img src="textures/enemies/black_soldier/mguard_shoot3.png" alt="" id="bGuard_shoot3">
+	
+</html>
+
+<style>
+    canvas {
+        border: 1px solid black;
+        display: block;
+        margin: 0 auto;
+    }
+    img {
+        display: none;
+    }
+</style>
+
+<script>
+	// CREDITS TO NANAKI FOR WHITE SOLDIER
+	// https://forum.zdoom.org/viewtopic.php?f=37&t=30390 (some weapons)
+    var player = {
+        x: 5,
+        y: 5,
+		z: 0,
+		vz: 0,
+        rotation: 0,
+        fov: 90,
+		gravity: 0.01,
+		look: 0,
+		height: 100,
+		jumpHeight: 0.4,
+		tilt: 0,
+		
+		vx: 0,
+		vy: 0,
+		sprinting: false,
+		
+		accuracy: 1,
+		
+		shoot: 0,
+		reload: 0,
+		shootDelay: 0,
+		sway: 0,
+		bulletsInMagazine: 24,
+		bulletsPerMag: 24,
+		
+		shootScript: function(){
+			enemies.sort(function(a,b){
+				var dist1 = calcDistance(a.x,a.y,player.x,player.y);
+				var dist2 = calcDistance(b.x,b.y,player.x,player.y);
+				return dist1 - dist2;
+			})
+			for (var i = 0; i < enemies.length; i++){
+				if (enemies[i].deathKeyframe > 1) continue;
+				var dx = enemies[i].x - this.x;
+				var dy = enemies[i].y - this.y;
+
+				var mag = Math.sqrt(dx*dx+dy*dy);
+
+				dx /= mag;
+				dy /= mag;
+
+				var lookX = Math.cos(player.rotation);
+				var lookY = Math.sin(player.rotation);
+
+				var dot = dx*lookX + dy * lookY;
+				var angle = Math.acos(dot);
+				if (angle < 0.1){
+					enemies[i].health -= 50;
+					break;
+				}
+			}
+		}
+    }
+    
+    var width = canvas.width,
+        height = canvas.height;
+    
+    var ctx = document.getElementById("canvas").getContext("2d");
+    
+    const Rad2Deg = 180/Math.PI;
+    const Deg2Rad = Math.PI/180;
+    
+    var graphicsQuality = 300;
+			
+    var _45 = Math.PI/4;
+    var _90 = Math.PI/2;
+    var _180 = Math.PI
+    var _360 = 2*Math.PI
+    
+    var viewDist = 400;
+	
+	var debug = true;
+    
+    var map = new Map(36,20);
+    map.grid = [
+		[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,1,1,0,0,0,0,0,0,1,0,0,1,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,1,1,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,2,2,2,0,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+		[2,0,0,2,0,2,0,0,2,0,0,0,2],
+		[2,0,0,2,0,2,0,0,2,0,2,0,2],
+		[2,0,0,2,0,0,0,0,0,0,2,0,2],
+		[2,0,0,0,0,2,0,0,2,0,0,0,2],
+		[2,2,2,2,2,2,2,2,2,2,2,2,2],
+    ]
+	
+	var map2 = new Map(36,20);
+	map2.grid = [
+		[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		[1,2,2,2,0,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+		[2,0,0,2,0,2,0,0,2,0,0,0,2],
+		[2,0,0,2,0,2,0,0,2,0,2,0,2],
+		[2,0,0,2,0,0,0,0,0,0,2,0,2],
+		[2,0,0,0,0,2,0,0,2,0,0,0,2],
+		[2,2,2,2,2,2,2,2,2,2,2,2,2],
+	]
+    
+    var textures = {
+        loaded: 0,
+        allLoaded: false,
+        "wall": document.getElementById("brick_wall"),
+		"brick_wall": document.getElementById("brick_wall_high_res"),
+		"stone_floor": document.getElementById("paving_stones"),
+		"skybox":document.getElementById("skybox"),
+		"grass": document.getElementById("grass"),
+		"bulletIcon": document.getElementById("bulletIcon"),
+		"redX": document.getElementById("redX"),
+		
+		"shotgun_idle": document.getElementById("shotgun_idle"),
+		
+		"shotgun_fire1": document.getElementById("shotgun_fire1"),
+		"shotgun_fire2": document.getElementById("shotgun_fire2"),
+		"shotgun_fire3": document.getElementById("shotgun_fire3"),
+		
+		"shotgun_reload0": document.getElementById("shotgun_reload0"),
+		"shotgun_reload1": document.getElementById("shotgun_reload1"),
+		"shotgun_reload2": document.getElementById("shotgun_reload2"),
+		"shotgun_reload3": document.getElementById("shotgun_reload3"),
+		"shotgun_reload4": document.getElementById("shotgun_reload4"),
+		"shotgun_reload5": document.getElementById("shotgun_reload5"),
+		
+		"bGuard_s1": document.getElementById("bGuard_s1"),
+		"bGuard_s2": document.getElementById("bGuard_s2"),
+		"bGuard_s3": document.getElementById("bGuard_s3"),
+		"bGuard_s4": document.getElementById("bGuard_s4"),
+		"bGuard_s5": document.getElementById("bGuard_s5"),
+		"bGuard_s6": document.getElementById("bGuard_s6"),
+		"bGuard_s7": document.getElementById("bGuard_s7"),
+		"bGuard_s8": document.getElementById("bGuard_s8"),
+		
+		"bGuard_w1_1": document.getElementById("bGuard_w1_1"),
+		"bGuard_w1_2": document.getElementById("bGuard_w1_2"),
+		"bGuard_w1_3": document.getElementById("bGuard_w1_3"),
+		"bGuard_w1_4": document.getElementById("bGuard_w1_4"),
+		"bGuard_w1_5": document.getElementById("bGuard_w1_5"),
+		"bGuard_w1_6": document.getElementById("bGuard_w1_6"),
+		"bGuard_w1_7": document.getElementById("bGuard_w1_7"),
+		"bGuard_w1_8": document.getElementById("bGuard_w1_8"),
+		
+		"bGuard_w2_1": document.getElementById("bGuard_w2_1"),
+		"bGuard_w2_2": document.getElementById("bGuard_w2_2"),
+		"bGuard_w2_3": document.getElementById("bGuard_w2_3"),
+		"bGuard_w2_4": document.getElementById("bGuard_w2_4"),
+		"bGuard_w2_5": document.getElementById("bGuard_w2_5"),
+		"bGuard_w2_6": document.getElementById("bGuard_w2_6"),
+		"bGuard_w2_7": document.getElementById("bGuard_w2_7"),
+		"bGuard_w2_8": document.getElementById("bGuard_w2_8"),
+		
+		"bGuard_w3_1": document.getElementById("bGuard_w3_1"),
+		"bGuard_w3_2": document.getElementById("bGuard_w3_2"),
+		"bGuard_w3_3": document.getElementById("bGuard_w3_3"),
+		"bGuard_w3_4": document.getElementById("bGuard_w3_4"),
+		"bGuard_w3_5": document.getElementById("bGuard_w3_5"),
+		"bGuard_w3_6": document.getElementById("bGuard_w3_6"),
+		"bGuard_w3_7": document.getElementById("bGuard_w3_7"),
+		"bGuard_w3_8": document.getElementById("bGuard_w3_8"),
+		
+		"bGuard_w4_1": document.getElementById("bGuard_w4_1"),
+		"bGuard_w4_2": document.getElementById("bGuard_w4_2"),
+		"bGuard_w4_3": document.getElementById("bGuard_w4_3"),
+		"bGuard_w4_4": document.getElementById("bGuard_w4_4"),
+		"bGuard_w4_5": document.getElementById("bGuard_w4_5"),
+		"bGuard_w4_6": document.getElementById("bGuard_w4_6"),
+		"bGuard_w4_7": document.getElementById("bGuard_w4_7"),
+		"bGuard_w4_8": document.getElementById("bGuard_w4_8"),
+		
+		"bGuard_die1": document.getElementById("bGuard_die1"),
+		"bGuard_die2": document.getElementById("bGuard_die2"),
+		"bGuard_die3": document.getElementById("bGuard_die3"),
+		"bGuard_die4": document.getElementById("bGuard_die4"),
+		
+		"bGuard_shoot1": document.getElementById("bGuard_shoot1"),
+		"bGuard_shoot2": document.getElementById("bGuard_shoot2"),
+		"bGuard_shoot3": document.getElementById("bGuard_shoot3"),
+		
+		"bGuard_pain1": document.getElementById("bGuard_shoot1"),
+		"bGuard_pain2": document.getElementById("bGuard_shoot2"),
+    }
+    
+    var images = document.getElementsByTagName("img");
+    for (var i = 0; i < images.length; i++){
+        images[i].onload = function(){
+            textures.loaded++;
+            if (textures.loaded == images.length){
+                textures.allLoaded = true;
+            }
+        }
+    }
+    
+    function rectangleMiddle(x,y,w,h,color){
+      ctx.fillStyle = color;
+      ctx.fillRect(x-w/2,y-h/2,w,h);
+    }
+    
+	function decimals(num){
+		return num - Math.floor(num);
+	}
+	Number.prototype.between = function(min,max){
+		return min <= this && this <= max;
+	}
+	
+	Number.prototype.isInteger = function(){
+		return this == Math.floor(this);
+	}
+	Number.prototype.clamp = function(min, max) {
+	  return Math.min(Math.max(this, min), max);
+	};
+	
+	function calcDistance(x,y,x1,y1){
+		var dx = x - x1;
+		var dy = y - y1;
+		return Math.sqrt(dx*dx+dy*dy);
+	}
+	function calcDistanceSquared(x,y,x1,y1){
+		var dx = x - x1;
+		var dy = y - y1;
+		return (dx*dx+dy*dy);
+	}
+	
+	function random(min,max){
+		return (Math.floor(Math.random() * (max - min + 1))+min);
+	}
+	
+	/*function Sound(src){
+		this.sound = document.createElement("audio");
+		this.sound.src = src;
+		this.sound.setAttribute("preload","auto");
+		this.sound.setAttribute("controls","none");
+		this.sound.style.display = "none";
+		document.body.appendChild(this.sound);
+		this.play = function(){
+			this.sound.play();
+		}
+	}*/
+	
+	function getWater(x,speed){
+		speed = speed || 1;
+		//return Math.cos((new Date()).getTime() * 0.001 + x * 0.01) * 5;
+		var time = ((new Date()).getTime()) * speed;
+		
+		/*var a = -Math.abs(Math.sin(x+time));
+		var b = 0.25 * Math.sin(x-time);
+		var c = 0.25 * a + 2 * b;
+		var d = 0.5 * c + Math.sin(0.25*x - 3*time) - 0.25 * c * c * c;
+		var e = d + 5 * Math.sin(0.025 * x + time);
+		return 0.25 * d * e;*/
+		
+		var a = Math.sin(0.25 * x - time);
+		var b = Math.sin(0.125 * x + time);
+		var c = -(5 * Math.sin(0.0125 * x + time) + 5) * Math.abs(Math.sin(0.0125*x));
+		var d = b - Math.abs(b*a) + Math.sin(time) + c;
+		return d;
+	}
+	
+    function drawTexture(texture,x,ray,angle,offsetMultiplier){
+		offsetMultiplier = offsetMultiplier || 0;
+		// draw image (image, cut_startX,cut_startY, cutWidth, cutHeight, x,y,width,height);
+		
+		// if ray x is whole number then you hit side of the block, use y - floor(y)
+		// if ray y is a whole number then you hit top/bottom of the block, use x - floor(x)
+		
+		if (!ray) return;
+		
+		var d = ray.distance * Math.cos(player.rotation - angle);
+		var wallHeight = d != 0 ? viewDist/d : viewDist/(d+1);
+		
+		var columnWidth = width / graphicsQuality;
+		
+		var spriteX = Math.floor(texture.width * ray.offset);
+		
+		var water = false;
+		var reflection = false;
+		if (water || reflection){
+			var offsetY = getWater(x,0.003) * 2;
+			if (reflection) offsetY = 0;
+		
+			ctx.globalAlpha = 0.2;
+		
+			ctx.drawImage(texture, spriteX,0, columnWidth, texture.height, x, height/2+wallHeight/2+offsetY+player.look,columnWidth,wallHeight);
+		
+			ctx.globalAlpha = 1;
+		}
+		
+		var y = height/2-wallHeight/2+player.look-wallHeight*offsetMultiplier;
+		
+		ctx.drawImage(texture, spriteX,0, columnWidth, texture.height, x, y,columnWidth,wallHeight);
+				
+		//ctx.drawImage(texture, spriteX,0, columnWidth, texture.height, x, height/2-h/2+player.z,columnWidth,h);
+        //ctx.drawImage(texture,x-w/2,y-h/2,w,h);
+    }
+	
+	function quadrant(angle){
+		/*
+		 2 | 1
+		-------
+		 3 | 4
+		*/
+		angle %= Math.PI * 2;
+		var _90 = Math.PI/2;
+		if (angle.between(0,_90)){
+			return 1;
+		}
+		if (angle.between(_90,_90*2)){
+			return 2;
+		}
+		if (angle.between(_90*2,_90*3)){
+			return 3;
+		}
+		return 4;
+	}
+
+	function distToNearestWhole(number){
+		// 3.6 -> 0.4
+		// 3.3 -> 0.3
+		var dec = decimals(number)
+		if (dec >= 0.5){
+			return 1 - dec
+		}
+		return dec
+	}
+	
+	function castSingleRay(rayAngle,map){		
+		var dist = 0;
+		var increment = 0.05;
+		
+		var cos = Math.cos(rayAngle);
+		var sin = Math.sin(rayAngle);
+		
+		while (dist < 15){
+			var x = cos * dist + player.x;
+			var y = sin * dist + player.y;
+
+			//	-----
+			//	|   |
+			//	-----
+			
+			if (map.get(x,y)){
+				if (increment <= 0.002){
+					var offset = decimals(y);
+					// calculate the offset here
+					var distX = distToNearestWhole(x)
+					var distY = distToNearestWhole(y)
+
+					if (distX > distY){
+						offset = decimals(x);
+					}
+					
+					return {
+						x: x,
+						y: y,
+						offset: offset * 0.9,
+						distance: dist,
+						object: map.get(x,y),
+					}
+				} else {
+					dist -= increment;
+					increment /= 2;
+				}
+			}
+			
+			
+			dist += increment;
+		}
+		return null;
+	}
+
+	function drawRadar(){
+		//ctx.fillStyle = "black"
+		//ctx.fillRect(Math.floor(ray.x)*10,Math.floor(ray.y)*10,10,10)
+		//ctx.drawImage(textures.wall,Math.floor(ray.x) * 10, Math.floor(ray.y)*10,10,10);
+
+		/*ctx.beginPath();
+		ctx.arc(ray.x*10,ray.y*10,1,0,2*Math.PI,false);
+		ctx.fillStyle = "red";
+		ctx.fill();*/
+		
+		var size = 5;
+		var blockSize = 10;
+		
+		var drawX = 0;
+		var drawY = 0;
+		
+		var translateX = -blockSize * size;
+		var translateY = -blockSize * size;
+		
+		var center = blockSize * size;
+		
+		for (var y = player.y - size; y <= player.y + size; y++){
+			for (var x = player.x - size; x <= player.x + size; x++){
+				if (map.get(x,y) == 1){
+					ctx.drawImage(textures.wall,drawX*blockSize,drawY*blockSize,blockSize,blockSize);
+				} else if (map.get(x,y) == 0) {
+					ctx.drawImage(textures.grass,drawX*blockSize,drawY*blockSize,blockSize,blockSize);
+				} else if (map.get(x,y) == 2){
+					ctx.drawImage(textures.brick_wall,drawX*blockSize,drawY*blockSize,blockSize,blockSize);
+				}
+				drawX++;
+			}
+			drawX = 0;
+			drawY++;
+		}
+		
+		ctx.fillStyle = "blue";
+		ctx.fillRect(blockSize*size, blockSize*size, blockSize/2, blockSize/2);
+		
+		ctx.strokeStyle = "blue";
+		
+		ctx.beginPath();
+		ctx.moveTo(center+blockSize/4,center+blockSize/4);
+		ctx.lineTo(center+blockSize/4+Math.cos(player.rotation) * 10,center +blockSize/4 + Math.sin(player.rotation) * 10);
+		ctx.stroke();
+	}
+	
+	function drawAllColumns(map,offset){
+		offset = offset || 0;
+		var positions = [];
+
+		for (var i = 0; i < graphicsQuality; i++){
+			var angle = (-player.fov/2 + player.fov * i/graphicsQuality) * Deg2Rad;
+			angle += player.rotation;
+            
+			var ray = castSingleRay(angle,map);
+			
+			var x = i * width / graphicsQuality;
+			
+			if (ray){
+				positions.push({x: ray.x, y: ray.y})
+			}
+			
+			//drawTexture(textures.wall,x,ray,angle,offset);
+			if (ray){
+				drawTexture(ray.object == 2 ? textures.brick_wall : textures.wall,x,ray,angle,offset);
+			}
+		}
+	}
+	
+	/*function drawFloor(texture, ray, y){
+		if (!ray) return;
+		//  double weight = (currentDist - distPlayer) / (distWall - distPlayer);
+		// // draw image (image, cut_startX,cut_startY, cutWidth, cutHeight, x,y,width,height);
+		/*var dist = height / (2 * y - height);
+		var weight = dist / ray.distance;
+		
+		var currentFloorX = weight * ray.x + (1 - weight) * player.x;
+		var currentFloorY = weight * ray.y + (1 - weight) * player.y;
+		
+		var textureX = (currentFloorX * texture.width) % texture.width;
+		var textureY = (currentFloorY * texture.height) % texture.height;
+		
+		ctx.drawImage(texture, textureX, textureY, texture.width, 1, currentFloorX,currentFloorY, texture.width,1);
+	}*/
+	
+	function mouseMovement(dx,dy){
+		/*if (Input.GetKey("ArrowUp")) player.look += 1/fps * 1500;
+		if (Input.GetKey("ArrowDown")) player.look -= 1/fps * 1500;
+		if (Input.GetKey("ArrowLeft")) player.rotation -= 1/fps * 3
+		if (Input.GetKey("ArrowRight")) player.rotation += 1/fps * 3*/
+		player.look += -1 * dy;
+		player.rotation += 1 * dx * 0.002;
+		
+		if (player.rotation < 0){
+			player.rotation += _360;
+		}
+		player.rotation %= _360;
+		
+		var contrain = {
+			min: -200,
+			max: 200,
+		}
+		
+		if (player.look < contrain.min){
+			player.look = contrain.min;
+		}
+		if (player.look > contrain.max){
+			player.look = contrain.max;
+		}
+	}
+	
+	function movement(){
+		var vx = 0;
+		var vy = 0;
+		
+		var speed = 1/fps * 6;
+		var sprintSpeed = 1/fps * 14;
+		
+		var sprinting = Input.GetKey("shift");
+		player.sprinting = sprinting;
+		
+		if (sprinting){
+			speed = sprintSpeed;
+			player.fov += (60 - player.fov) / 20;
+		} else {
+			player.fov += (90 - player.fov) / 50;
+		}
+		
+		if (Input.GetKey("w")){
+			vx += Math.cos(player.rotation) * speed;
+			vy += Math.sin(player.rotation) * speed;
+		}
+		if (Input.GetKey("s")){
+			vx += -Math.cos(player.rotation) * speed;
+			vy += -Math.sin(player.rotation) * speed;
+		}
+		if (Input.GetKey("a")){
+			vx += -Math.cos(player.rotation+_90) * speed;
+			vy += -Math.sin(player.rotation+_90) * speed;
+		}
+		if (Input.GetKey("d")){
+			vx += Math.cos(player.rotation+_90) * speed;
+			vy += Math.sin(player.rotation+_90) * speed;
+		}
+		
+		if (Input.GetMouseButton(0) && player.shoot == 0 && player.reload == 0 && bulletEntities.length > 0){
+			if (player.shootDelay < 0){
+				player.shoot = 1;
+				player.shootDelay = 0.1;
+				player.bulletsInMagazine--;
+				player.shootScript();
+				bulletEntityAnimation();
+			}
+		}
+		if (Input.GetKey("r") && player.reload == 0){
+			player.reload = 1;
+		}
+		if (Input.GetKey(" ") && player.z == 0){
+			player.vz = -Math.sqrt(player.gravity * 2 * player.jumpHeight);
+		}
+		if (Input.GetKey("q")){
+			player.z += 0.1;
+			player.vz = 0;
+		}
+		if (Input.GetKey("e")){
+			player.z -= 0.1;
+			player.vz = 0;
+		}
+		
+		player.vx = vx;
+		player.vy = vy;
+		
+		if (vx > speed) player.vx = speed;
+		if (vx < -speed) player.vx = -speed;
+		if (vy > speed) player.vy = speed;
+		if (vy < -speed) player.vy = -speed;
+		
+		if (map.get(player.x+player.vx,player.y) == 0 || player.z > 2){
+			player.x += player.vx;
+		}
+		if (map.get(player.x,player.y+player.vy) == 0 || player.z > 2){
+			player.y += player.vy;
+		}
+		
+		player.vx *= 0.8;
+		player.vy *= 0.8;
+	}
+	
+	function drawSky(){
+		// draw image (image, cut_startX,cut_startY, cutWidth, cutHeight, x,y,width,height);
+		var widthPerDeg = textures.skybox.width / 360;
+		
+		var skyWidth = widthPerDeg * player.fov;
+		var rotNorm = player.rotation;
+		while (rotNorm < 0) rotNorm += _360;
+		while (rotNorm > _360) rotNorm -= _360;
+		rotNorm /= _360;
+		var x = (rotNorm * textures.skybox.width) % textures.skybox.width;
+		var x2 = ((rotNorm+_360) * textures.skybox.width) % textures.skybox.width;
+		
+		ctx.drawImage(textures.skybox,x, 0, skyWidth, textures.skybox.height, 0,0,width,height/2+player.look);
+		ctx.drawImage(textures.skybox,x2, 0, skyWidth, textures.skybox.height, 0,0,width,height/2+player.look);
+	}
+	
+	function drawGraph(heights){
+		var norm = Math.max.apply(null, heights);
+		var graphHeight = 30;
+		
+		ctx.fillStyle = "black";
+		ctx.fillRect(75,height-graphHeight,heights.length,graphHeight);
+		
+		ctx.textAlign = "right";
+		ctx.fillText(norm.toFixed(0),75,height-graphHeight);
+		
+		var lines = false;
+		if (lines){
+			ctx.beginPath();
+			ctx.moveTo(75,height - heights[0]/norm * graphHeight);
+
+			for (var i = 1; i < heights.length; i++){
+				var x = heights[i] / norm * graphHeight;
+				ctx.lineTo(75+i,height - x);
+			}
+			ctx.strokeStyle = "lime";
+			ctx.stroke();
+		}
+		else {
+			for (var i = 0; i < heights.length; i++){
+				var h = heights[i] / norm * graphHeight;
+				ctx.fillStyle = "lime";
+				ctx.fillRect(75+i,height - h,1,h);
+			}
+		}
+	}
+	
+	function drawWeapon(){
+		var img = textures.shotgun_idle;
+		
+		if (player.shoot > 0){
+			// pick random fire animation
+			player.shoot = random(1,3);
+			img = textures["shotgun_fire"+player.shoot];
+			// next frame set it to 0 (no animation)
+			if (player.shoot > 0){
+				player.shoot = 0;
+			}
+			
+		}
+		
+		if (player.reload > 0){
+			img = textures["shotgun_reload"+Math.floor(player.reload+1)];
+			player.reload += 0.1;
+			if (player.reload >= 5){
+				player.reload = 0;
+				player.bulletsInMagazine = player.bulletsPerMag
+				createBulletEntities(player.bulletsPerMag);
+			}
+		}
+		
+		var xOffset = Math.sin(player.sway * 0.1) * 30;
+		var yOffset = Math.cos(player.sway * 0.1) * 10;
+		
+		if (player.sprinting){
+			yOffset += (Math.sin(player.sway * 0.4) + 1) * 15;
+		}
+		/*player.tilt = Math.sin(player.sway * 0.4) * 0.03;
+		if (!player.sprinting){
+			player.tilt = 0;
+		}*/
+		if (yOffset < 0){
+			yOffset = 0;
+		}
+		
+		ctx.drawImage(img,width/2 - img.width/2 + xOffset, height - img.height + yOffset);
+	}
+	
+	function drawFloor(){
+		var texture = textures.stone_floor;
+		// draw image (image, cut_startX,cut_startY, cutWidth, cutHeight, x,y,width,height);
+		
+	}
+	
+	var fps = 1;
+	var minfps = 20000;
+	var maxfps = 0;
+	
+	var lastFps = [];
+	
+	function cameraShake(mag){
+		var amount = 200;
+		function x(){
+			player.tilt = Math.random() * mag * 2 - mag;
+			
+			if (amount > 0){
+				mag -= mag / amount;
+				amount -= 1;
+				setTimeout(x,30);
+			}
+		}
+		x();
+	}
+	//cameraShake(0.2);
+	
+	function createBulletEntities(amount){
+		bulletEntities = [];
+		var totalWidth = 300;
+		var maxPerRow = 30;
+		for (var i = 0; i <= amount; i++){
+			var iconWidth = totalWidth/amount;
+			if (amount > maxPerRow){
+				iconWidth = totalWidth/maxPerRow;
+			}
+			var iconHeight = iconWidth*3;
+			var x = width - iconWidth * (i+1);
+			var y = height - iconHeight;
+			if (amount > maxPerRow && i >= maxPerRow){
+				x = width - iconWidth * (i - maxPerRow);
+				y -= iconHeight
+			}
+			bulletEntities.push({
+				x: x,
+				y: y,
+				width: iconWidth,
+				height: iconHeight,
+				vx: Math.random() * 4 - 2,
+				vy: -14,
+				spin: Math.random() * 0.5 - 0.25,
+				used: false,
+				rotation: 0,
+				bounce: Math.random() * 100 < 30,
+				yOffset: iconHeight,
+			})
+		}
+	}
+	
+	var bulletEntities = [];
+	
+	function bulletEntityAnimation(){
+		for (var i = 0; i < bulletEntities.length; i++){
+			var index = bulletEntities.length - 1 - i;
+			if (!bulletEntities[index].used){
+				bulletEntities[index].used = true;
+				break;
+			}
+		}
+	}
+	
+	class AI {
+		constructor(x,y){
+			this.x = x;
+			this.y = y;
+			this.rotation = 0;
+			this.walking = false;
+			this.walkingKeyframe = Math.random() * 4;
+			this.health = 100;
+			this.deathKeyframe = 1;
+			this.dead = false;
+			this.drawPos = {}; // used for headshot mechanic
+			
+			enemies.push(this);
+		}
+		draw(){
+			// this goes from 0 to 2pi
+			var angleToEnemy = Math.atan2(this.y - player.y, this.x - player.x) + _180 - this.rotation;
+			if (angleToEnemy < 0){
+				angleToEnemy += _360;
+			}
+			// 0 -> 8
+			// 1 -> 7
+			// 2 -> 6
+			// ...
+			// 8 -> 1
+			// THIS IS ANIMATION FOR STANDING STILL
+			var texture;
+
+			// rotation max = 8
+			// have to reverse because the images are in reverse order :/
+			var rotationNormalized = (8 - Math.floor(angleToEnemy / _360 * 7));
+			rotationNormalized = rotationNormalized.clamp(1,8);
+
+			if (this.health <= 0){
+				this.deathKeyframe += 0.15;
+				if (this.deathKeyframe > 5){
+					this.deathKeyframe = 4;
+					this.dead = true;
+				}
+				texture = textures["bGuard_die"+Math.floor(this.deathKeyframe)];
+			}
+			else if (!this.walking){
+				// maximum of 8 standing frames
+				var number = (8 - Math.floor(angleToEnemy / _360 * 8));
+				number = number.clamp(1,8);
+				texture = textures["bGuard_s"+number];
+			} else {
+				// walking
+				// mguard_w[keyframe]_[rotation] e.g. mguard_w1_2
+				// [keyframe] max = 4
+				// rotation max = 8
+				var number = (4 - Math.floor(angleToEnemy / _360 * 4));
+				number = number.clamp(1,4);
+
+				this.walkingKeyframe += 0.1;
+				if (this.walkingKeyframe > 5){
+					this.walkingKeyframe = 1;
+				}
+				if (this.walkingKeyframe < 1){
+					this.walkingKeyframe = 1;
+				}
+
+				texture = textures["bGuard_w"+Math.floor(this.walkingKeyframe)+"_"+rotationNormalized];
+			}
+			//ctx.drawImage(texture, width/2 + x - size/2, height/2 - size/2 + player.look - player.z * size, size, size);
+			drawSprite(texture, this.x, this.y);
+		}
+		update(){
+			if (this.dead) return;
+			var vx = 0//Math.cos(this.rotation) * 0.03;
+			var vy = 0//Math.sin(this.rotation) * 0.03;
+			
+			if (map.get(this.x+vx,this.y+vy) == 0){
+				this.x += vx;
+				this.y += vy;
+			}
+		}
+		lookAt(position){
+			this.rotation = Math.atan2(position.y - this.y,position.x - this.x);
+		}
+	}
+	
+	var enemies = [];
+	
+	//new AI(2,2);
+	//new AI(1,12);
+	//new AI(4,12);
+	for (var i = 0; i < 5; i++){
+		for (var j = 0; j < 5; j++){
+			new AI(i+1,j+1);
+		}
+	}
+	
+	// this function takes in texture and position x,y from the map, and draws it based on viewing angle of the player
+	function drawSprite(texture, x, y){
+		var dx = x - player.x;
+		var dy = y - player.y;
+		
+		var dist = Math.sqrt(dx*dx+dy*dy);
+		
+		var angle = Math.atan2(dy,dx) - player.rotation;
+		
+		var size = viewDist / (Math.cos(angle) * dist);
+		
+		var x = Math.tan(angle) * viewDist;
+		
+		var ray = castSingleRay(angle, map);
+			
+		var drawX = width/2 + x - size/2;
+		var drawY = height/2 - size/2 + player.look - player.z * size;
+		
+		if (Math.abs(angle * toDeg) <= player.fov/2){
+			ctx.drawImage(texture, drawX, drawY, size, size);
+		}
+	}
+	
+	function drawCrosshair(radius){
+		ctx.strokeStyle = "lime";
+		ctx.lineWidth = 3;
+		
+		ctx.beginPath();
+		ctx.arc(width/2,height/2,radius,0,2*Math.PI,false);
+		ctx.stroke();
+	}
+	
+    function render(){
+		var start = performance.now();
+		
+        ctx.fillStyle = "white";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+		
+		ctx.fillStyle = "brown";
+		ctx.fillRect(0,200+player.look,800,200-player.look);
+		
+		ctx.fillStyle = "skyblue";
+		ctx.fillRect(0,0,800,200+player.look);
+		
+		//player.tilt = (player.vx * player.vx + player.vy * player.vy) * 20 * Math.sin(player.sway*0.3);
+		
+		ctx.save();
+		if (player.tilt != 0){
+			ctx.translate(width/2,height/2);
+			ctx.rotate(player.tilt);
+			ctx.translate(-width/2,-height/2);
+		}
+		
+		
+		//drawFloor();
+		
+		//drawSky();
+		
+		drawAllColumns(map2,1+player.z);
+        drawAllColumns(map,0+player.z);
+		
+		enemies.sort(function(a,b){
+			var d = calcDistanceSquared(a.x,a.y,player.x,player.y);
+			var d2 = calcDistanceSquared(b.x,b.y,player.x,player.y);
+			return d2 - d;
+		})
+		
+		for (var enemy of enemies){
+			enemy.update();
+			enemy.draw();
+		}
+		//guard.lookAt(player);
+		
+		drawRadar();
+		
+		// display bullets
+		for (var i = 0; i < bulletEntities.length; i++){
+			var _bullet = bulletEntities[i];
+			
+			ctx.save();
+			ctx.translate(_bullet.x,_bullet.y);
+			ctx.rotate(_bullet.rotation);
+			ctx.drawImage(textures.bulletIcon,0,0+_bullet.yOffset,_bullet.width,_bullet.height);
+			ctx.restore();
+			
+			if (_bullet.yOffset > 0){
+				_bullet.yOffset -= i * 0.1 + 1;
+			} else {
+				_bullet.yOffset = 0;
+			}
+			
+			if (_bullet.used){
+				if (_bullet.y < 400){
+					_bullet.y += _bullet.vy;
+					_bullet.vy += 2;
+					_bullet.x += _bullet.vx;
+					if (_bullet.x > width){
+						_bullet.vx = -Math.abs(_bullet.vx);
+					}
+					_bullet.rotation += _bullet.spin;
+				} else {
+					bulletEntities.splice(i,1);
+				}
+			}
+		}
+		
+		ctx.textAlign = "center";
+		ctx.fillStyle = "black";
+		ctx.fillText((player.rotation * Rad2Deg).toFixed(1),width/2,10);
+		
+		movement();
+		
+		var diff = (performance.now() - start);
+		
+		fps = diff == 0 ? 1000 : 1000 / diff;
+		// draw box
+		ctx.fillStyle = "white";
+		ctx.fillRect(0,height-30,45,30);
+		
+		ctx.fillStyle = "black";
+		ctx.textAlign = "left";
+		ctx.fillText("FPS: "+fps.toFixed(0),0,height-20);
+		ctx.fillText("Min: "+minfps.toFixed(0),0,height-10);
+		ctx.fillText("Max: "+maxfps.toFixed(0),0,height);
+		
+		lastFps.push(fps);
+		if (lastFps.length > 100){
+			lastFps.shift();
+		}
+		if (player.vx * player.vx + player.vy * player.vy > 0){
+			player.sway++;
+		} else {
+			//while (player.sway > _360) player.sway -= _360;
+			if (player.sway > _360*10) player.sway = player.sway % (_360*10);
+			player.sway *= 0.96;
+		}
+		
+		if (debug){
+			ctx.textAlign = "right";
+			ctx.fillStyle = "black";
+			ctx.fillText("Position: "+player.x.toFixed(1)+", "+player.y.toFixed(1)+", "+player.z.toFixed(1),width-10,10);
+			ctx.fillText("Rotation: "+player.look.toFixed(1)+", "+player.rotation.toFixed(1)+", "+player.tilt.toFixed(1),width-10,20);
+			ctx.fillText("Velocity: "+player.vx.toFixed(3)+", "+player.vy.toFixed(3)+", "+player.vz.toFixed(3),width-10,30);
+		}
+		maxfps = Math.max(fps,maxfps);
+		minfps = Math.min(fps,minfps);
+		
+		drawGraph(lastFps);
+		
+		drawWeapon();
+		
+		if (player.shootDelay >= 0){
+			player.shootDelay -= 4/fps;
+		}
+		if (player.z > 1){
+			if (map2.get(player.x,player.y+player.vz) == 0){
+				player.z += player.vz;
+			}
+		}
+		if (player.z < 1){
+			if (map.get(player.x,player.y+player.vz) == 0){
+				player.z += player.vz;
+			}
+		}
+		player.vz += player.gravity;
+		if (player.z > 0){
+			player.z = 0;
+			player.vz = 0;
+		}
+		
+		ctx.restore();
+		
+		drawCrosshair(player.accuracy);
+		
+		//setTimeout(render,1);
+        requestAnimationFrame(render);
+    }
+	// give some time for textures to load
+    setTimeout(render,500);
+	
+	var mouse = {
+		x: 0,
+		y: 0
+	}
+	
+	document.addEventListener("mousemove",function(event){
+		if (document.pointerLockElement != canvas) return;
+		
+		mouseMovement(event.movementX,event.movementY);
+	},false);
+	
+	
+	
+    
+</script>

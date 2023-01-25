@@ -1,0 +1,477 @@
+@import url(PTMono/PTM55FT.ttf);
+
+* {
+    font-family: 'PT Mono', monospace !important;
+    user-select: none;
+    transition: all 0.2s ease-in-out;
+}
+.no-transition {
+    transition: none !important;
+}
+.text-center {
+    text-align: center;
+}
+.top-nav-menu {
+    position: absolute; 
+    top: 0; 
+    left: 0;
+    right: 0;
+    opacity: 0;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 99999;
+    margin: 0 !important;
+}
+.top-nav-menu:hover {
+    opacity: 1;
+    width: 100%;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+canvas {
+    border: 1px solid black;
+    margin: 0 auto;
+    display: block;
+}
+
+#canvasTooltip {
+    position: absolute;
+    padding: 5px;
+    border: 1px solid black;
+    font-size: 14px;
+    opacity: 0.8;
+    background-color: #7B7D7D;
+}
+
+#textures > img {
+    display: none;
+}
+
+.right-align {
+    float: right;
+}
+
+#playerInformation {
+    background-color: #F0F3F4;
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 13em;
+    padding: 15px;
+}
+
+#inventoryContainer {
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    max-width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 5;
+}
+#questMenu {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.inventory-slot:nth-child(6n+1) {
+    clear: both;
+}
+
+.inventory-slot {
+    float: left;
+    width: 65px;
+    height: 65px;
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+    position: relative;
+    margin: 1px;
+}
+#skilltree {
+    padding-top: 40px;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #eaeaea;
+    position: absolute;
+    z-index: 10;
+}
+
+.item-amount {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 2px;
+    font-size: 16px;
+}
+
+.inventory-slot > img,
+.equipped-item-container > img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.item-delete-btn {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: red;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.item-equip-btn {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: #4CAF50;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+img {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+#inventoryTooltip {
+    position: absolute;
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    border-radius: 0.5em;
+    z-index: 99999;
+}
+
+.sortButton {
+    width: 50px;
+    height: 30px;
+    font-weight: 700;
+    font-size: 18px;
+    background-color: #14B8D4;
+    border: #13A8C1 2px solid;
+    outline: none;
+    cursor: pointer;
+}
+
+.tooltip-quality {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#buildMenu {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 99;
+}
+.buildMenu-item:hover {
+    background-color: #eee;
+}
+
+/*
+QUALITIES
+0 = Common       #ECF0F1
+1 = Rare         #85C1E9
+2 = Very rare    #2874A6
+3 = Epic         #E74C3C
+4 = Legendary    #F1C40F
+5 = Mythical     #8E44AD
+*/
+
+/*
+.common {background-color: #ECF0F1 !important;}
+.rare {background-color: #85C1E9 !important;}
+.veryrare {background-color: #2874A6 !important;}
+.epic {background-color: #E74C3C !important;}
+.legendary {background-color: #F1C40F !important;}
+.mythical {background-color: #8E44AD !important;}
+*/
+
+/*
+The code below will colour in the equipment rarity,
+there is no other way ;/
+*/
+
+.selected.common,
+.quality-box.common,
+.equipped-item-container.common,
+#canvasTooltip.common {
+    /*	background-color: #ECF0F1 !important;*/
+    background: linear-gradient(#ECF0F1, #EFF2F3);
+}
+
+.selected.rare,
+.quality-box.rare,
+.equipped-item-container.rare,
+#canvasTooltip.rare {
+    /*	background-color: #85C1E9 !important;*/
+    background: linear-gradient(#85C1E9, #B1D7F1);
+}
+
+.selected.veryrare,
+.quality-box.veryrare,
+.equipped-item-container.veryrare,
+#canvasTooltip.veryrare {
+    /*	background-color: #2874A6 !important;*/
+    background: linear-gradient(#2874A6, #76A6C6);
+}
+
+.selected.epic,
+.quality-box.epic,
+.equipped-item-container.epic,
+#canvasTooltip.epic {
+    /*	background-color: #E74C3C !important;*/
+    background: linear-gradient(#E74C3C, #EF8D82);
+}
+
+.selected.legendary,
+.quality-box.legendary,
+.equipped-item-container.legendary,
+#canvasTooltip.legendary {
+    /*	background-color: #F1C40F !important;*/
+    background: linear-gradient(#F1C40F, #F6D966);
+}
+
+.selected.mythical,
+.quality-box.mythical,
+.equipped-item-container.mythical,
+#canvasTooltip.mythical {
+    /*	background-color: #8E44AD !important;*/
+    background: linear-gradient(#8E44AD, #A266BB);
+}
+
+.square img {
+    width: 75%;
+    height: 75%;
+    margin: auto;
+    margin-top: 12.5%;
+}
+
+.square {
+    width: 70px;
+    height: 70px;
+    float: left;
+    margin: 4px;
+}
+
+.square:not(.placeholder) {
+    margin: 4px;
+}
+
+.background {
+    background-color: #FFF;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.clear {
+    clear: both;
+}
+
+.placeholder {
+    text-align: center;
+    font-size: 12px;
+    background: #FFF;
+    border: 0.5px solid black;
+}
+
+.equipped-item-container {
+    width: 100%;
+    height: 100%;
+}
+
+.green {
+    background-color: #4CAF50;
+}
+
+.red {
+    background-color: #E74C3C;
+}
+
+.blue {
+    background-color: #3798D9;
+}
+
+.purple {
+    background-color: #7E57C2;
+}
+
+.full {
+    width: 100%;
+    height: 100%;
+}
+
+.center {
+    vertical-align: middle;
+}
+.crossed-out {
+/*    text-decoration: line-through;*/
+}
+.questItem-finished:before {
+    content: "✔";
+    color: #4caf50;
+    padding: 5px;
+    font-weight: 900;
+}
+.black-text {
+    color: black !important;
+}
+.grey-text {
+    color: grey !important;
+}
+
+#inventoryItemName {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#inventoryAttributesContainer * {
+    line-height: 5px;
+}
+
+#inventoryAttributesContainer {
+    padding: 10px;
+    border: 2px solid #D5D5D5;
+}
+
+#inventoryButtons > button {
+    float: left;
+    height: 25px;
+    outline: none;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+#inventoryItemDescription {
+    font-size: 14px;
+    margin: 10px 0;
+    text-align: left;
+    max-width: 200px;
+}
+
+#playerInventory {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#canvasParent {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    overflow: hidden;
+}
+
+#playerStats {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#currency {
+    font-size: 20px;
+}
+
+.left {
+    float: left !important;
+}
+
+.right {
+    float: right !important;
+}
+
+.text-green {
+    color: #4CAF50;
+}
+
+.text-red {
+    color: #E74C3C;
+}
+
+.text-orange {
+    color: #E67E22;
+}
+
+.outline {
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+#playerProgressBars {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.progress-container {
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.2);
+    width: 200px;
+    background-color: #EEEEEE;
+}
+
+.progress-bar {
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+.quality-box {
+    width: 100%;
+    height: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.ui.segment {
+    margin: 0 !important;
+}
+
+.currency-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.image-padding {
+    padding: 4px !important;
+    margin: 0 !important;
+}
+
+#dialogContainer {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    /* Need a specific value to work */
+    z-index: 9999;
+}
+#buildingManager {
+    position: absolute;
+    top: 0;
+    left: 33%;
+}

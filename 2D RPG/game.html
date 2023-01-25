@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+    <div id="canvasParent">
+        <canvas id="canvas" width="800" height="400" onclick='Building.CanvasClick();'></canvas>
+
+        <!--	Player inventory (equipables)  -->
+        <div id="playerInventory" class='ui segment no-transition'>
+            <h2 class="ui icon header aligned tiny"><i class="user icon"></i>
+                <div class="content">Equipment</div>
+            </h2>
+
+            <div class="ui divider"></div>
+
+            <div class="square"></div>
+            <div class="square background placeholder" id=player_head>Head</div>
+            <div class="square"></div>
+
+            <div class="clear"></div>
+
+            <div class="square background placeholder" id=player_hand>Hand</div>
+            <div class="square background placeholder" id=player_chest>Chest</div>
+            <div class="square background placeholder" id=player_finger>Finger</div>
+
+            <div class="clear"></div>
+
+            <div class="square"></div>
+            <div class="square background placeholder" id=player_legs>Legs</div>
+            <div class="square"></div>
+
+            <div class="clear"></div>
+
+            <div class="square"></div>
+            <div class="square background placeholder" id=player_feet>Feet</div>
+            <div class="square background placeholder" id=player_special>Special</div>
+        </div>
+        <!-- Inventory (slots) -->
+        <div id="inventoryContainer" class='ui segment no-transition'>
+            <h2 class="ui icon header aligned tiny"><i class="cubes icon"></i>
+                <div class="content">Inventory</div>
+            </h2>
+
+            <div class="ui divider"></div>
+
+            <div id="inventorySettings" class='four ui buttons'>
+                <button class='ui button black' onclick='player.inventory.Sort("a-z");'>A-Z</button>
+                <button class='ui button black' onclick='player.inventory.Sort("quality");'>Quality</button>
+                <button class='ui button black' onclick='player.inventory.Sort("price");'>Value</button>
+                <button class="ui button black" onclick='player.inventory.Sort("slot");'>Slot</button>
+            </div>
+            <!--		actual inventory-->
+            <div id="inventory"></div>
+            <div id="currency"></div>
+        </div>
+
+        <div id="playerStats">
+
+            <div id="playerProgressBars">
+                <div class="progress-container left clear">
+                    <div class="progress-bar red" id=player_healthbar>231/231</div>
+                </div>
+                <div class="progress-container left clear">
+                    <div class="progress-bar blue" id=player_manabar>10/10</div>
+                </div>
+                <div class="progress-container left clear">
+                    <div class="progress-bar purple" id=player_levelbar>10/10</div>
+                </div>
+            </div>
+
+            <div class="c100 p100 blue small right" id=player_specialbar>
+                <span class='full'>
+                    <img class=center style='width: 75%; height: 75%;' src="textures/icons/heal_icon.png" alt="">
+                </span>
+                <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="buildMenu">
+            <div class="ui segment">
+                <h2>Build menu</h2>
+                <div class="ui horizontal divided list">
+                    <div class="item buildMenu-item" onclick='player.Select("woodHut");'>
+                        <img src="textures/buildings/woodHut.png" class="ui avatar image">
+                        <div class="content">
+                            <div class="header">Wooden hut</div>
+                            Collects wood.<br>
+                            <img src="textures/items/log.png"> 100
+                        </div>
+                    </div>
+                    <div class="item buildMenu-item" onclick='player.Select("farm");'>
+                        <img src="textures/buildings/farm.png" class="ui avatar image">
+                        <div class="content">
+                            <div class="header">Farm</div>
+                            Collects wheat.<br>
+                            <img src="textures/items/log.png"> 20
+                        </div>
+                    </div>
+                    <div class="item buildMenu-item" onclick='player.Select("cave");'>
+                        <img src="textures/buildings/cave.png" class="ui avatar image">
+                        <div class="content">
+                            <div class="header">Cave</div>
+                            Collects stone.<br>
+                            <img src="textures/items/log.png"> 250
+                            <img src="textures/items/stone.png"> 500
+                        </div>
+                    </div>
+                    <div class="item buildMenu-item" onclick='player.Select("marketplace");' id=marketplaceBuild>
+                        <img src="textures/buildings/marketplace.png" class="ui avatar image">
+                        <div class="content">
+                            <div class="header">Marketplace</div>
+                            Sells resources.<br>
+                            <img src="textures/items/log.png"> 500
+                            <img src="textures/items/stone.png"> 1000
+                            <img src="textures/items/wheat.png"> 2000
+                        </div>
+                    </div>
+                    <div class="item buildMenu-item" onclick='player.Select("workshop");' id=workshopBuild>
+                        <img src="textures/buildings/workshop.png" class="ui avatar image">
+                        <div class="content">
+                            <div class="header">Workbench</div>
+                            Craft weapons.<br>
+                            <img src="textures/items/log.png"> 500
+                            <img src="textures/items/stone.png"> 1000
+                            <img src="textures/items/wheat.png"> 2000
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="playerInformation">
+            <p class="ui header">Player Profile</p>
+            <div id="playerInformationHTML"></div>
+            <div id="playerInfoTooltip"></div>
+        </div>
+        
+        <div id="skilltree">
+            <div class="ui segment">
+                <div class="ui divider horizontal">Skill tree</div>
+                <div id="skilltreeContent" class='ui three cards'></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- popup window for items -->
+    <div id="inventoryTooltip" onmouseover="player.inventory.mouseOver(true);" onmouseout="player.inventory.mouseOver(false);" style="display: none;">
+        <div id="inventoryItemName"></div>
+        <div id="inventoryItemDescription"></div>
+        <div id="inventoryAttributesContainer"></div>
+        <div id="inventoryValue"></div>
+        <div id="inventoryButtons">
+            <button id=equipBtn onclick='player.inventory.equipSelected();'>Equip</button>
+            <button id=dropBtn onclick='player.inventory.dropSelected();'>Drop</button>
+        </div>
+    </div>
+    
+    <div id="buildingManager" class='no-transition'>
+        <div class="ui segment">
+            <div class="ui four statistics mini">
+                <div class="statistic">
+                    <div class="label">Name</div>
+                    <div class="value" id=build_name>Hut</div>
+                </div>
+                <div class="statistic">
+                    <div class="label" id=resource_name>Wood</div>
+                    <div class="value" id=resource_value>1</div>
+                </div>
+                <div class="statistic">
+                    <div class="label">Speed</div>
+                    <div class="value" id=build_speed>4s</div>
+                </div>
+                <div class="statistic">
+                    <div class="label">Amount</div>
+                    <div class="value" id=build_amount>4</div>
+                </div>
+            </div>
+            <div class="ui vertical divided list">
+<!--
+               <div class="item"><button class='ui button fluid green'>Upgrade</button></div>
+               <div class="item"><button class='ui button fluid orange'>Get Resources</button></div>
+               <div class="item"><button class='ui button fluid red'>Destroy</button></div>
+-->
+                <div class="ui grid">
+                    <div class="eight wide column" id=buildingUpgrades>
+                        <p class='text-center'>Upgrades</p>
+                        <div class="ui vertical divided list">
+                            <div class="item">
+                                <div class="ui labeled fluid button">
+                                    <button class="ui button fluid green" onclick=Building.UpgradeSpeed(); id=speedBuyBtn>Speed x2</button>
+                                    <a class="ui basic black left pointing label" id=building_speed_price>5<img src='textures/icons/diamond.png' class='image-padding'></a>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="ui labeled fluid button">
+                                    <button class="ui button fluid red" onclick=Building.UpgradeAmount(); id=amountBuyBtn>Amount + 1</button>
+                                    <a class="ui basic black left pointing label tiny" id=building_amount_price>12<img src='textures/icons/emerald.png' class='image-padding'></a>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="ui labeled fluid button">
+                                    <button class="ui button fluid green" onclick=Building.UpgradeCapacity(); id=capacityBuyBtn>Capacity x2</button>
+                                    <a class="ui basic black left pointing label tiny" id=building_capacity_price>6<img src='textures/icons/gold.png' class='image-padding'></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="eight wide column">
+                        <p class='text-center'>Manage</p>
+                        <div class="ui vertical divided list">
+                            <div class="item" id=sell_resources_parent>
+                                <div class="ui labeled fluid button">
+                                    <button class="ui button fluid green" onclick=Building.SellResources();>Sell resources</button>
+                                    <a class="ui basic black left pointing label tiny" id=sell_price>50 gold.</a>
+                                </div>
+                            </div>
+                            <div class="item" id=getResourcesParent>
+                                <button class="ui fluid button orange" onclick='Building.GetResources();'>Get Resources</button>
+                            </div>
+                            <div class="item">
+                                <button class="ui fluid button red" onclick='Building.Destroy();'>Destroy</button>
+                            </div>
+                            <div class="item" id=craftingSettings>
+                                <p class='ui header'>Craft an armour piece!</p>
+                                <fieldset>
+                                    <legend>Identification settings</legend>
+                                    <div class="ui labeled input mini">
+                                        <div class="ui label">Amount</div>
+                                        <input type="number" id=idenCraftAmount onchange=Building.CraftUpdate()>
+                                    </div>
+                                    <div class="ui labeled input mini">
+                                        <div class="ui label">Level</div>
+                                        <input type="number" id=idenCraftLevel onchange=Building.CraftUpdate()>
+                                    </div>
+                                </fieldset>
+                                <div class="ui celled list">
+                                    <div class="item">
+                                        <div class="ui labeled fluid button mini">
+                                            <button class="ui button fluid grey" onclick='Building.Craft(0);'>Common</button>
+                                            <a class="ui left pointing label tiny" id=craft0price></a>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="ui labeled fluid button mini">
+                                            <button class="ui button fluid teal" onclick='Building.Craft(1);'>Rare</button>
+                                            <a class="ui left pointing label tiny" id=craft1price></a>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="ui labeled fluid button mini">
+                                            <button class="ui button fluid blue" onclick='Building.Craft(2);'>Very Rare</button>
+                                            <a class="ui left pointing label tiny" id=craft2price></a>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="ui labeled fluid button mini">
+                                            <button class="ui button fluid red" onclick='Building.Craft(3);'>Epic</button>
+                                            <a class="ui left pointing label tiny" id=craft3price></a>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="ui labeled fluid button mini">
+                                            <button class="ui button fluid yellow" onclick='Building.Craft(4);'>Legendary</button>
+                                            <a class="ui left pointing label tiny" id=craft4price></a>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="ui labeled fluid button mini">
+                                            <button class="ui button fluid purple" onclick='Building.Craft(5);'>Mythical</button>
+                                            <a class="ui left pointing label tiny" id=craft5price></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id=textures>
+
+        <img src="textures/monsters/owerm.png" id=owerm>
+        <img src="textures/monsters/skeleton.png" id=skeleton>
+        <img src="textures/monsters/flame_skull.png" id="flame skull">
+        <img src="textures/environment/grass.png" id=grass>
+        <img src="textures/player/topsideStorekeeper.png" id=farmer>
+        <img src="textures/environment/rock.png" id=rock>
+        <img src="textures/projectiles/swordSlash.png" id=swordSlash>
+        <img src="textures/projectiles/fireball_single.png" id=fireball>
+        <img src="textures/particles/rock%20break.png" id=rock_break>
+        <img src="textures/icons/heal_icon.png" id=healIcon>
+        <img src="textures/particles/frozenIcon.png" id=frozenIcon>
+        <img src=textures/particles/limeSkull.png id=limeSkull>
+        <img src="textures/particles/blood.png" id=blood>
+        <img src="textures/particles/xpOrb.png" id=xp>
+        
+<!--        <img src="textures/map/terrain.png" id=mapDataTerrain>-->
+<!--        <img src="textures/map/buildings.png" id=mapDataBuildings>-->
+        
+        <img src="textures/items/log.png" id="wood">
+        <img src="textures/items/wheat.png" id="wheat">
+        <img src="textures/items/stone.png" id="stone">
+        
+        <img src="textures/buildings/cave.png" id='cave'>
+        <img src="textures/buildings/farm.png" id='farm'>
+        <img src="textures/buildings/marketplace.png" id='marketplace'>
+        <img src="textures/buildings/woodHut.png" id='woodHut'>
+        <img src="textures/buildings/buildArea.png" id=buildArea>
+        <img src="textures/buildings/build_spritesheet.png" id=buildIcon>
+        <img src="textures/buildings/workshop.png" id=workshop>
+        
+        <img src="textures/projectiles/arrow.png" id=arrow>
+        <img src="textures/projectiles/ball.png" id="ball">
+        <img src="textures/projectiles/bullet.png" id="bullet">
+        <img src="textures/projectiles/fire_bolt.png" id="fire_bolt">
+        <img src="textures/projectiles/fire_goo.png" id="fire_goo">
+        <img src="textures/projectiles/green_goo.png" id="green_goo">
+        <img src="textures/projectiles/ice_bolt.png" id="ice_bolt">
+        <img src="textures/projectiles/lightning_bolt.png" id="lightning_bolt">
+        <img src="textures/projectiles/ninja_star.png" id="ninja_star">
+        <img src="textures/projectiles/poison_arrow.png" id="poison_arrow">
+        <img src="textures/projectiles/purple_plasma.png" id="purple_plasma">
+        <img src="textures/projectiles/purple_projectile.png" id="purple_projectile">
+        <img src="textures/projectiles/web.png" id="web">
+        <img src="textures/projectiles/wiggle_arrow.png" id="wiggle_arrow">
+        <img src="textures/projectiles/yellow_star.png" id="yellow_star">
+        
+        <img src="textures/icons/arrowRight.png" id=arrowRight>
+        <img src="textures/icons/green%20exclamation%20mark.png" id=greenExclamation>
+        <img src="textures/icons/red%20exclamation%20mark.png" id=redExclamation>
+        <img src="textures/icons/map.png" id=map>
+        
+        <img src="textures/player/player_idle_0.png" id=player_idle_0>
+        <img src="textures/player/player_idle_1.png" id=player_idle_1>
+        
+        <img src="textures/player/player_walk_0_0.png" id="player_walk_0_0">
+        <img src="textures/player/player_walk_0_1.png" id="player_walk_0_1">
+        <img src="textures/player/player_walk_0_2.png" id="player_walk_0_2">
+        <img src="textures/player/player_walk_0_3.png" id="player_walk_0_3">
+        
+        <img src="textures/player/player_walk_2_0.png" id="player_walk_2_0">
+        <img src="textures/player/player_walk_2_1.png" id="player_walk_2_1">
+        <img src="textures/player/player_walk_2_2.png" id="player_walk_2_2">
+        <img src="textures/player/player_walk_2_3.png" id="player_walk_2_3">
+
+        <img src="textures/items/chest.png" id=chest>
+        <img src="textures/items/ShovelSteel.png" id="shovel">
+        
+        <img src="textures/buildings/villagebuilding0.PNG" id=villagebuilding0>
+        <img src="textures/buildings/villagebuilding1.PNG" id="villagebuilding1">
+        <img src="textures/buildings/villagebuilding2.PNG" id="villagebuilding2">
+        <img src="textures/buildings/villagebuilding3.PNG" id="villagebuilding3">
+        <img src="textures/buildings/villagebuilding4.PNG" id="villagebuilding4">
+        <img src="textures/buildings/villagebuilding5.PNG" id="villagebuilding5">
+        <img src="textures/buildings/path.png" id=path>
+        
+        <img src="textures/buildings/tree0.PNG" id="tree0">
+        <img src="textures/buildings/tree1.PNG" id="tree1">
+        <img src="textures/buildings/tree2.PNG" id="tree2">
+        <img src="textures/buildings/tree3.PNG" id="tree3">
+        
+        <img src="textures/items/lizardparalysis.PNG" id=lizard_paralysis>
+        <img src="textures/items/manscramp.PNG" id=mans_cramp>
+        <img src="textures/items/frost_epilepsy.PNG" id=frost_epilepsy>
+        
+        <img src="textures/monsters/Crawler.PNG" id="crawler">
+        <img src="textures/monsters/FloatingEye0.PNG" id="floatingEye0">
+        <img src="textures/monsters/FloatingEye1.PNG" id="floatingEye1">
+        <img src="textures/monsters/LivingMound.PNG" id="livingmound">
+        <img src="textures/monsters/Mage0.PNG" id="mage0">
+        <img src="textures/monsters/Mage1.PNG" id="mage1">
+        <img src="textures/monsters/Mage2.PNG" id="mage2">
+        <img src="textures/monsters/Mage3.PNG" id="mage3">
+        <img src="textures/monsters/Mage4.PNG" id="mage4">
+        <img src="textures/monsters/Mage5.PNG" id="mage5">
+        <img src="textures/monsters/Mage6.PNG" id="mage6">
+        <img src="textures/monsters/Mage7.PNG" id="mage7">
+        <img src="textures/monsters/Mage8.PNG" id="mage8">
+        <img src="textures/monsters/Mage9.PNG" id="mage9">
+        <img src="textures/monsters/Mage10.PNG" id="mage10">
+        <img src="textures/monsters/Mage11.PNG" id="mage11">
+        <img src="textures/monsters/Mold.PNG" id="mold">
+        <img src="textures/monsters/People0.PNG" alt="" id="people0">
+        <img src="textures/monsters/People1.png" alt="" id="people1">
+        <img src="textures/monsters/People2.png" alt="" id="people2">
+        <img src="textures/monsters/People3.png" alt="" id="people3">
+        <img src="textures/monsters/People4.png" alt="" id="people4">
+        <img src="textures/monsters/People5.png" alt="" id="people5">
+        <img src="textures/monsters/People6.png" alt="" id="people6">
+        <img src="textures/monsters/People7.png" alt="" id="people7">
+        <img src="textures/monsters/People8.png" alt="" id="people8">
+        <img src="textures/monsters/People9.png" alt="" id="people9">
+        <img src="textures/monsters/People10.png" alt="" id="people10">
+        <img src="textures/monsters/People11.png" alt="" id="people11">
+        <img src="textures/monsters/People12.png" alt="" id="people12">
+        <img src="textures/monsters/People13.png" alt="" id="people13">
+        <img src="textures/monsters/People14.png" alt="" id="people14">
+        <img src="textures/monsters/People15.png" alt="" id="people15">
+        <img src="textures/monsters/Snake.PNG" id="snake">
+        <img src="textures/monsters/Spectre.PNG" id="spectre">
+        <img src="textures/monsters/Spider.PNG" id="spider">
+        <img src="textures/monsters/Spirit.PNG" id="spirit">
+        <img src="textures/monsters/Trickster.PNG" id="trickster">
+        <img src="textures/monsters/TrollWraith.PNG" id="trollwraith">
+        <img src="textures/monsters/WormMass.PNG" id="wormmass">
+        <img src="textures/monsters/WraithKing.PNG" id="wraithking">
+        <img src="textures/monsters/WraithLord.PNG" id="wraithlord">
+
+        <img src="textures/items/wand.png" id=wand>
+        <img src="textures/items/sword.png" id=sword>
+        <img src="textures/items/boots.png" id=boots>
+        <img src="textures/items/chestplate.png" id=chestplate>
+        <img src="textures/items/helmet.png" id=helmet>
+        <img src="textures/items/ring.png" id=ring>
+        <img src="textures/items/trousers.png" id=trousers>
+
+        <img src="textures/icons/bronze.png" id="bronze_coin">
+        <img src="textures/icons/silver.png" id="silver_coin">
+        <img src="textures/icons/gold.png" id="gold_coin">
+        <img src="textures/icons/diamond.png" id="diamond_coin">
+        <img src="textures/icons/emerald.png" id="emerald_coin">
+        
+        <img src="textures/items/boots/boots0.png" id="boots0">
+        <img src="textures/items/boots/boots1.png" id="boots1">
+        <img src="textures/items/boots/boots2.png" id="boots2">
+        <img src="textures/items/boots/boots3.png" id="boots3">
+        <img src="textures/items/boots/boots4.png" id="boots4">
+        
+        <img src="textures/items/chestplate/chestplate0.png" id="chestplate0">
+        <img src="textures/items/chestplate/chestplate1.png" id="chestplate1">
+        <img src="textures/items/chestplate/chestplate2.png" id="chestplate2">
+        <img src="textures/items/chestplate/chestplate3.png" id="chestplate3">
+        <img src="textures/items/chestplate/chestplate4.png" id="chestplate4">
+        <img src="textures/items/chestplate/chestplate5.png" id="chestplate5">
+        <img src="textures/items/chestplate/chestplate6.png" id="chestplate6">
+        <img src="textures/items/chestplate/chestplate7.png" id="chestplate7">
+        <img src="textures/items/chestplate/chestplate8.png" id="chestplate8">
+        <img src="textures/items/chestplate/chestplate9.png" id="chestplate9">
+        <img src="textures/items/chestplate/chestplate10.png" id="chestplate10">
+        <img src="textures/items/chestplate/chestplate11.png" id="chestplate11">
+        <img src="textures/items/chestplate/chestplate12.png" id="chestplate12">
+        <img src="textures/items/chestplate/chestplate13.png" id="chestplate13">
+        <img src="textures/items/chestplate/chestplate14.png" id="chestplate14">
+        <img src="textures/items/chestplate/chestplate15.png" id="chestplate15">
+        <img src="textures/items/chestplate/chestplate16.png" id="chestplate16">
+        <img src="textures/items/chestplate/chestplate17.png" id="chestplate17">
+        <img src="textures/items/chestplate/chestplate18.png" id="chestplate18">
+        <img src="textures/items/chestplate/chestplate19.png" id="chestplate19">
+        <img src="textures/items/chestplate/chestplate20.png" id="chestplate20">
+        <img src="textures/items/chestplate/chestplate21.png" id="chestplate21">
+        <img src="textures/items/chestplate/chestplate22.png" id="chestplate22">
+        <img src="textures/items/chestplate/chestplate23.png" id="chestplate23">
+        <img src="textures/items/chestplate/chestplate24.png" id="chestplate24">
+        <img src="textures/items/chestplate/chestplate25.png" id="chestplate25">
+        <img src="textures/items/chestplate/chestplate26.png" id="chestplate26">
+        <img src="textures/items/chestplate/chestplate27.png" id="chestplate27">
+        <img src="textures/items/chestplate/chestplate28.png" id="chestplate28">
+        <img src="textures/items/chestplate/chestplate29.png" id="chestplate29">
+        <img src="textures/items/chestplate/chestplate30.png" id="chestplate30">
+        <img src="textures/items/chestplate/chestplate31.png" id="chestplate31">
+        <img src="textures/items/chestplate/chestplate32.png" id="chestplate32">
+        <img src="textures/items/chestplate/chestplate33.png" id="chestplate33">
+        <img src="textures/items/chestplate/chestplate34.png" id="chestplate34">
+        <img src="textures/items/chestplate/chestplate35.png" id="chestplate35">
+        <img src="textures/items/chestplate/chestplate36.png" id="chestplate36">
+        <img src="textures/items/chestplate/chestplate37.png" id="chestplate37">
+        <img src="textures/items/chestplate/chestplate38.png" id="chestplate38">
+        <img src="textures/items/chestplate/chestplate39.png" id="chestplate39">
+        <img src="textures/items/chestplate/chestplate40.png" id="chestplate40">
+        <img src="textures/items/chestplate/chestplate41.png" id="chestplate41">
+        
+        <img src="textures/items/helmet/helmet0.png" id="helmet0">
+        <img src="textures/items/helmet/helmet1.png" id="helmet1">
+        <img src="textures/items/helmet/helmet2.png" id="helmet2">
+        <img src="textures/items/helmet/helmet3.png" id="helmet3">
+        <img src="textures/items/helmet/helmet4.png" id="helmet4">
+        <img src="textures/items/helmet/helmet5.png" id="helmet5">
+        
+        <img src="textures/items/ring/ring0.png" id="ring0">
+        <img src="textures/items/ring/ring1.png" id="ring1">
+        <img src="textures/items/ring/ring2.png" id="ring2">
+        <img src="textures/items/ring/ring3.png" id="ring3">
+        <img src="textures/items/ring/ring4.png" id="ring4">
+        <img src="textures/items/ring/ring5.png" id="ring5">
+        <img src="textures/items/ring/ring6.png" id="ring6">
+        <img src="textures/items/ring/ring7.png" id="ring7">
+        <img src="textures/items/ring/ring8.png" id="ring8">
+        <img src="textures/items/ring/ring9.png" id="ring9">
+        <img src="textures/items/ring/ring10.png" id="ring10">
+        <img src="textures/items/ring/ring11.png" id="ring11">
+        <img src="textures/items/ring/ring12.png" id="ring12">
+        <img src="textures/items/ring/ring13.png" id="ring13">
+        <img src="textures/items/ring/ring14.png" id="ring14">
+        <img src="textures/items/ring/ring15.png" id="ring15">
+        <img src="textures/items/ring/ring16.png" id="ring16">
+        <img src="textures/items/ring/ring17.png" id="ring17">
+        <img src="textures/items/ring/ring18.png" id="ring18">
+        <img src="textures/items/ring/ring19.png" id="ring19">
+        <img src="textures/items/ring/ring20.png" id="ring20">
+        <img src="textures/items/ring/ring21.png" id="ring21">
+        <img src="textures/items/ring/ring22.png" id="ring22">
+        <img src="textures/items/ring/ring23.png" id="ring23">
+        
+        <img src="textures/items/sword/sword0.png" id="sword0">
+        <img src="textures/items/sword/sword1.png" id="sword1">
+        <img src="textures/items/sword/sword2.png" id="sword2">
+        <img src="textures/items/sword/sword3.png" id="sword3">
+        <img src="textures/items/sword/sword4.png" id="sword4">
+        <img src="textures/items/sword/sword5.png" id="sword5">
+        <img src="textures/items/sword/sword6.png" id="sword6">
+        <img src="textures/items/sword/sword7.png" id="sword7">
+        <img src="textures/items/sword/sword8.png" id="sword8">
+        <img src="textures/items/sword/sword9.png" id="sword9">
+        <img src="textures/items/sword/sword10.png" id="sword10">
+        <img src="textures/items/sword/sword11.png" id="sword11">
+        <img src="textures/items/sword/sword12.png" id="sword12">
+        <img src="textures/items/sword/sword13.png" id="sword13">
+        <img src="textures/items/sword/sword14.png" id="sword14">
+        <img src="textures/items/sword/sword15.png" id="sword15">
+        <img src="textures/items/sword/sword16.png" id="sword16">
+        <img src="textures/items/sword/sword17.png" id="sword17">
+        <img src="textures/items/sword/sword18.png" id="sword18">
+        <img src="textures/items/sword/sword19.png" id="sword19">
+        <img src="textures/items/sword/sword20.png" id="sword20">
+        <img src="textures/items/sword/sword21.png" id="sword21">
+        <img src="textures/items/sword/sword22.png" id="sword22">
+        <img src="textures/items/sword/sword23.png" id="sword23">
+        <img src="textures/items/sword/sword24.png" id="sword24">
+        <img src="textures/items/sword/sword25.png" id="sword25">
+        <img src="textures/items/sword/sword26.png" id="sword26">
+        <img src="textures/items/sword/sword27.png" id="sword27">
+        <img src="textures/items/sword/sword28.png" id="sword28">
+        <img src="textures/items/sword/sword29.png" id="sword29">
+        <img src="textures/items/sword/sword30.png" id="sword30">
+        <img src="textures/items/sword/sword31.png" id="sword31">
+        <img src="textures/items/sword/sword32.png" id="sword32">
+        <img src="textures/items/sword/sword33.png" id="sword33">
+        <img src="textures/items/sword/sword34.png" id="sword34">
+        <img src="textures/items/sword/sword35.png" id="sword35">
+        <img src="textures/items/sword/sword36.png" id="sword36">
+        <img src="textures/items/sword/sword37.png" id="sword37">
+        <img src="textures/items/sword/sword38.png" id="sword38">
+        <img src="textures/items/sword/sword39.png" id="sword39">
+        <img src="textures/items/sword/sword40.png" id="sword40">
+        <img src="textures/items/sword/sword41.png" id="sword41">
+        <img src="textures/items/sword/sword42.png" id="sword42">
+        <img src="textures/items/sword/sword43.png" id="sword43">
+        <img src="textures/items/sword/sword44.png" id="sword44">
+        <img src="textures/items/sword/sword45.png" id="sword45">
+        <img src="textures/items/sword/sword46.png" id="sword46">
+        <img src="textures/items/sword/sword47.png" id="sword47">
+        
+        <img src="textures/items/wand/wand0.png" id="wand0">
+        <img src="textures/items/wand/wand1.png" id="wand1">
+        <img src="textures/items/wand/wand2.png" id="wand2">
+        <img src="textures/items/wand/wand3.png" id="wand3">
+        <img src="textures/items/wand/wand4.png" id="wand4">
+        <img src="textures/items/wand/wand5.png" id="wand5">
+        <img src="textures/items/wand/wand6.png" id="wand6">
+        <img src="textures/items/wand/wand7.png" id="wand7">
+        <img src="textures/items/wand/wand8.png" id="wand8">
+        <img src="textures/items/wand/wand9.png" id="wand9">
+        <img src="textures/items/wand/wand10.png" id="wand10">
+        <img src="textures/items/wand/wand11.png" id="wand11">
+        <img src="textures/items/wand/wand12.png" id="wand12">
+        <img src="textures/items/wand/wand13.png" id="wand13">
+        <img src="textures/items/wand/wand14.png" id="wand14">
+        <img src="textures/items/wand/wand15.png" id="wand15">
+        <img src="textures/items/wand/wand16.png" id="wand16">
+        <img src="textures/items/wand/wand17.png" id="wand17">
+        <img src="textures/items/wand/wand18.png" id="wand18">
+        <img src="textures/items/wand/wand19.png" id="wand19">
+        <img src="textures/items/wand/wand20.png" id="wand20">
+        <img src="textures/items/wand/wand21.png" id="wand21">
+        <img src="textures/items/wand/wand22.png" id="wand22">
+        <img src="textures/items/wand/wand23.png" id="wand23">
+        <img src="textures/items/wand/wand24.png" id="wand24">
+        <img src="textures/items/wand/wand25.png" id="wand25">
+        <img src="textures/items/wand/wand26.png" id="wand26">
+        <img src="textures/items/wand/wand27.png" id="wand27">
+    </div>
+
+    <div id="dialogContainer" style='display: none;'>
+        <div class='ui message huge black'>
+            <div class="header" id='dialogSpeaker'></div>
+            <p id='dialogMsg'></p>
+            <div class='ui buttons'>
+                <button class="ui button green" onclick='Message.Next();' id=dialogNextBtn>>></button>
+                <div class="or"></div>
+                <button class="ui button red" onclick='Message.Skip();' id=dialogSkipBtn>Skip</button>
+            </div>
+        </div>
+    </div>
+
+    <div id=questMenu class='ui segment'>
+        <h3 class="ui header unordered aligned text-center tiny" id=questName></h3>
+        <div class="ui divided selection list" id=questList></div>
+    </div>
+
+    <!-- Most important libraries at top -->
+    <script src="Vector.js"></script>
+    <script src="Input.js"></script>
+    <script src="Camera.js"></script>
+    <script src="Physics.js"></script>
+    <script src="itemData.js"></script>
+
+    <script src="QuadTree.js"></script>
+
+    <script src="Entity.js"></script>
+    <script src="Inventory.js"></script>
+    <script src="Player.js"></script>
+    <script src="Map.js"></script>
+    <script src='Quest.js'></script>
+    <script src="Building.js"></script>
+    <script src="libraries/jquery.js"></script>
+
+    <script src="Game.js"></script>
+
+    <div id="canvasTooltip">Hello</div>
+
+    <div class="ui menu six item top-nav-menu">
+        <a class="item" onclick='openMenu("playerInformation",this);'>Player Profile</a>
+        <a class="item active" onclick='openMenu("inventory",this);'>Inventory</a>
+        <a class="item" onclick='openMenu("skilltree",this);'>Skill Tree</a>
+        <a class="item" onclick='openMenu("questMenu",this);'>Quests</a>
+        <a class="item" onclick='openMenu("buildMenu",this);'>Buildings</a>
+        <a class="item" onclick='openMenu("",this);'>Close all</a>
+    </div>
+	
+</html>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="circle.css">
+<link rel="stylesheet" href="semantic/default.css">
+				
+<link rel="stylesheet" href="semantic/button.css">
+<link rel="stylesheet" href="semantic/container.css">
+<link rel="stylesheet" href="semantic/divider.css">
+<link rel="stylesheet" href="semantic/header.css">
+<link rel="stylesheet" href="semantic/icon.css">
+<link rel="stylesheet" href="semantic/label.css">
+<link rel="stylesheet" href="semantic/popup.css">
+<link rel="stylesheet" href="semantic/progress.css">
+<link rel="stylesheet" href="semantic/segment.css">
+<link rel="stylesheet" href="semantic/menu.css">
+<link rel="stylesheet" href="semantic/grid.css">
+<link rel="stylesheet" href="semantic/statistic.css">

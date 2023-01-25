@@ -1,0 +1,131 @@
+# Combat
+- Spells
+- Uses mana
+- Received from skill tree
+- Default attack
+- Delay between attacks and spells
+- loot system
+
+# Movement
++ Using WASD + mouse + 0-9
++ Use mouse to move camera around
+
+# Camera
++ Position x,y
++ The current position of the camera in world space.
++ Camera projection size
++ How zoomed in/out the camera is.
++ Smooth Lerping
++ Smoothly move from one position to another
++ ScreenToWorld
++ Convert coordinates from the screen to the world coordinates in game.
++ WorldToScreen
++ Convert coordinates from the world to the screen coordinates.
++ Fix camera boundaries (going outside map) the calculation is wrong and needs to be fixed !
+
+# Character Development
++ Inventory
++ Store items
++ Manage items
++ Organize items
++ Sort method
++ Alphabetically
++ Quality
++ Common
++ Rare
++ Very rare
++ Mythical
++ Legendary
++ Price
++ Drag and drop items
++ Drop item
++ See item statistics
++ Damage
++ Fire rate
++ Range
++ Bullet count
++ Accuracy
+- Attack type
+- Homing
+- Will go for the nearest enemy
+- Normal
+- Will not change velocity
++ Limited slot space
++ Keeps track of the currency
++ Bronze coins
++ Silver coins
++ Same as 1000 bronze coins
++ Gold coins
++ Same as 1000 silver coins
+- Name tag for the items
+
+# Skill tree
+- Skills / spells that can be learnt
+
+# Character points
+- Increase points to the character
+- Strength
+- Base damage
+- Regen
+- Health / sec out of combat
+- Health
+- Maximum health
+- Swiftness
+- The speed of the player
+
+# Rendering
++ Map
++ Characters and sprites
++ Particles
+
+# Physics
++ Collision detection
++ Once detected do an appropriate action
++ Resolve collisions
++ Make sure no objects are colliding the next frame
++ Update positions of moving objects
+
+# User Interface
++ Quest Progress
++ Display the current task
++ Cross out finished tasks in current quest
+- Character statistics
+- Display current statistics of the character
+- Be able to add points to a character statistic
+- Display
+- Health
+- Mana
+- Spells and their cooldown
+
+# Saving/Loading
+- Auto save
+- Multiple saves
+
+# Effects
++ Poison
++ Regen
+- Speed
+- drugged effect (player only)
+
+# Building manager
++ Build various buildings
+- Saw mill
+- Wood -> wood block
++ Lumberjack’s hut
+- Generates wood
++ Farm
+- Generates wheat
++ Mine
+- Generates stone/iron ore/coal
+- Windmill
+- Wheat -> flour
+- Furnace
+- Transforms iron ore -> iron
+- Uses coal
+- Storage unit
+- Stores all resources
+- Marketplace
+- Sell resources
+- Emerald coins -> 2x resource production for a building
+- Diamond coin -> 2x speed
+

@@ -1,0 +1,27 @@
+animation
+ui
+just that you don't see what happend when it hits you, like for me you where invincible
+were*
+
+
+Atakuje automatycznie potwory w zasiêgu widzenia:
+
+Burza(Pioruny, maja szanse na stun + zaatakowanie 2/3/4 potwora w zasiêgu uderzenia, coœ jak "Chain Lightning")
+Zamieæ - Spowalnia trafionego przeciwnika, szansa na rzucenie Novy mrozu na przeciwniku, co spowalnia przeciwników w zasiêgu/lub zamra¿a. Nova mrozu mo¿e zamroziæ ziemie, co spowolni przeciwników którzy po niej siê przejd¹.
+Ognista Burza - Szansa na podpalenie, mo¿e uderzaæ z opóŸnieniem ale ma wiêkszy obszar na którym zadaje obra¿enia.
+
+Tarcza(Mrozu/ognia itd, co tam chcesz) - Odbija pociski i zamienia je w ¿ywio³ tarczy z ich efektami(piorun = stun, mróz - slow, ogieñ - podpalenie)
+
+Dual casting - Jako, ¿e najprawdopodobniej mo¿esz u¿yæ tylko 1 rodzaju burzy, dual casting jako skill który ma du¿e wymagania w drzewku, mo¿e ci umo¿liwiæ aktywowanie 2 rodzajów burzy jednoczeœnie.
+
+Zawsze chcia³em zobaczyæ w grze skill dla maga który daje ci "elemental orb" które za tob¹ lataj¹ i automatycznie atakuj¹ przeciwników, lub ka¿dy casting innym ¿ywio³em daje ci orb tego ¿ywio³u, które wykorzystujesz, ¿eby castowaæ coœ mocniejszego.
+Np. Castujesz typowy "fireball", dostajesz 1 fire orb, maj¹c 5 orbów(musi byæ jakiœ limit ile tych orbów mo¿esz mieæ, dodaj¹c orba poza limitem, usunie orba z 1 pozycji) mo¿esz castowaæ jakiœ inferno skill czy coœ.
+Maj¹c 1 fire/water/lighting/earth/wind mo¿esz castowaæ coœ specjalnego, typu dark hole :D
+
+Wydaje mi siê, ¿e nie jest to trudne do napisania
+
+Ja jako gracz chcê mieæ mo¿liwoœæ budowania postaci na wiele sposobów, ka¿dy ¿ywio³ mo¿e mieæ swoje plusy/minusy.(Nie musz¹ to byæ ¿ywio³y).
+Jako ¿e masz grê rpg w której biegasz postaci¹, to mo¿esz dodaæ summony :]
+Lub pomyœl nad postaciami które rzadko widzisz w grach, typu Alchemista.
+
+Jest gra która daje takie mo¿liwoœci: "Chronicon" na steamie.

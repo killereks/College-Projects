@@ -1,0 +1,79 @@
+Lake Disaster
+=============
+// Monster specialist tells the player what monsters drop what and where they spawn
+- Fish have died in the lake
+- Go to a monster specialist (give it different name)
+- Find out why they're dying
+- Go to the witch to make a potion that clears the lake from contamination
+- Witch tells player to collect some ingredients
+- Go back to monster specialist to find which monsters drop those ingredients
+- Witch won't make potion until she trusts the player
+- Do a quest for witch and collect a special ingredient
+- Go to monster specialist and find out which monster drops it
+- Collect that ingredient and go back to the witch
+- Witch creates that potion
+- Bring the potion back to the guy with the lake problem
+
+Bully Misfortune
+================
+- A guy is being bullied by some guys
+- Kill the bullies
+
+Virus
+=====
+// There is a spreading virus
+- Father has a son that is very ill
+- Bring son a health potion
+- Go to the monster specialist to find out the ingredients
+- Get those ingredients
+- Go to the witch and make the potion
+- Go back to the father
+- Son dies 'accidentally'
+- Go back to monster specialist
+- Get ingredients for a revive potion
+- Go back to the witch
+- Get the potion and come back
+
+Evil guy
+========
+- A guy can't get into the house
+- Find a key
+
+Robbed
+======
+- A guy was robbed
+- Find out who robbed the house by asking people around the village
+- Go to that robber's house and speak to him
+- Get the stuff back
+- Go back to the guy who was robbed
+
+Tavern
+======
+A gang has been stealing wine from a rural tavern get it back
+
+Tavern
+======
+- Not enough beer
+- Go to the brewery
+- Brewery is missing hop
+- Go to the farmer -> problems with growing (drought)
+- Get some water from nearby well
+- Wait for the farmer to grow the hop (cutscene)
+- Go to brewery where they will make beer (cutscene)
+- Go back to tavern with the beer.
+
+Curse
+=====
+A cursed item passes from hand to hand, corrupting those it touches.
+- Speak to all people who have been cursed and find out what the item is
+- Destroy the item
+
+Lost
+====
+A child or family is lost in the wilderness and is in need of rescue.
+
+Kicked out
+==========
+Prince has been kicked out of the castle, everyone forgot about him and he cannot get back in.
+Prove that he is the prince
+Bring him back
