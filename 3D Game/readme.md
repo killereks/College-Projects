@@ -1,4 +1,4 @@
-#3D Game: Wolfenstein Inspired
+# 3D Game: Wolfenstein Inspired
 Welcome to our 3D game inspired by the classic Wolfenstein engine, featuring raycasting as the main rendering engine. This game includes several features to enhance your experience, including textures that correctly tile, performance FPS graphs, a minimap, and a fake 3D rotation system for the player, including jumping.
 
 The game is divided into several HTML files, each with its own unique features.
@@ -11,7 +11,7 @@ The game is divided into several HTML files, each with its own unique features.
 
 - game5.html has no weapon and improved graphics, allowing you to focus on exploring the game world and immersing yourself in the experience.
 
-#Installation
+# Installation
 To run the game, please follow these steps:
 
 Clone or download the repository to your local machine.
@@ -20,8 +20,8 @@ Open the corresponding HTML file in a web browser.
 
 The game should now be running and ready to play.
 
-#Contributing
+# Contributing
 We welcome contributions to this project. If you would like to make a change, please fork the repository and submit a pull request.
 
-#License
+# License
 This project is licensed under the MIT License.
